@@ -1,0 +1,2 @@
+Seed potato, planted: 0 milliseconds ago
+SmallPlant potato, planted: 50 milliseconds ago

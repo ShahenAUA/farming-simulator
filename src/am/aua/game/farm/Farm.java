@@ -15,4 +15,6 @@ public class Farm {
     public void setPlant(int x, int y, Plant p) {
         this.farmSpace[x][y] = new Plant(p);
     }
+
+
 }

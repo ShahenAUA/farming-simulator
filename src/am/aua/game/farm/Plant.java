@@ -6,6 +6,8 @@ public class Plant {
     private PlantGrowthStages stage;
     private int growthDuration;
     private int timeSincePlanted;
+    private int weight;
+    private int tickAmount;
 
 
     public Plant(PlantGrowthStages s, int gd, int tsp) {
@@ -22,6 +24,7 @@ public class Plant {
         this.stage = other.getStage();
         this.growthDuration = other.getGrowthDuration();
         this.timeSincePlanted = other.getTimeSincePlanted();
+        this.weight = other.getWeight();
     }
 
     public PlantGrowthStages getStage() {
@@ -43,5 +46,15 @@ public class Plant {
     }
     public void setTimeSincePlanted(int tsp) {
         this.timeSincePlanted = tsp;
+    }
+
+    public int getWeight() { return this.weight; }
+    public void setWeight(int w) { this.weight = w; }
+
+    public void timeTick() {
+        this.timeSincePlanted += this.tickAmount;
+        if(timeSincePlanted >= 0.25 * (double) this.growthDuration) this.setStage(PlantGrowthStages.Sprout);
+        if(timeSincePlanted >= 0.50 * (double) this.growthDuration) this.setStage(PlantGrowthStages.SmallPlant);
+        if(timeSincePlanted == this.growthDuration) this.setStage(PlantGrowthStages.AdultPlant);
     }
 }
