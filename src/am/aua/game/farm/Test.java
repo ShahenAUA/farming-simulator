@@ -24,10 +24,14 @@ public class Test {
 //                System.out.println("Every 2 seconds");
 //            }
 //        },0,2000);
+        Farm farm = new Farm();
         Potato p = new Potato();
         Potato p2 = new Potato(Plant.PlantGrowthStages.SmallPlant, 100, 50);
         Storage st = new Storage();
-        st.collectPlant(p);
-        st.collectPlant(p2);
+        farm.setPlant(1,1, p);
+        farm.setPlant(1,2,p2);
+        farm.intervalTimer();
+//        st.collectPlant(p);
+//        st.collectPlant(p2);
     }
 }

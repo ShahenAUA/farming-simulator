@@ -7,7 +7,7 @@ public class Plant {
     private int growthDuration;
     private int timeSincePlanted;
     private int weight;
-    private int tickAmount;
+    private final int tickAmount=30;
 
 
     public Plant(PlantGrowthStages s, int gd, int tsp) {
@@ -52,9 +52,12 @@ public class Plant {
     public void setWeight(int w) { this.weight = w; }
 
     public void timeTick() {
-        this.timeSincePlanted += this.tickAmount;
-        if(timeSincePlanted >= 0.25 * (double) this.growthDuration) this.setStage(PlantGrowthStages.Sprout);
-        if(timeSincePlanted >= 0.50 * (double) this.growthDuration) this.setStage(PlantGrowthStages.SmallPlant);
-        if(timeSincePlanted == this.growthDuration) this.setStage(PlantGrowthStages.AdultPlant);
+        this.setTimeSincePlanted(this.timeSincePlanted + this.tickAmount);
+        if(this.timeSincePlanted >= 0.25 * (double) this.growthDuration && this.timeSincePlanted <= 0.50 * (double) this.growthDuration) this.setStage(PlantGrowthStages.Sprout);
+        if(this.timeSincePlanted >= 0.50 * (double) this.growthDuration && this.timeSincePlanted < (double) this.growthDuration) this.setStage(PlantGrowthStages.SmallPlant);
+        if(this.timeSincePlanted >= this.growthDuration) this.setStage(PlantGrowthStages.AdultPlant);
+    }
+
+    public String toString(){return this.getStage() + " " + this.getClass().getSimpleName() + ", planted: " + this.getTimeSincePlanted() + " milliseconds ago with growth duration of "+ this.getGrowthDuration();
     }
 }

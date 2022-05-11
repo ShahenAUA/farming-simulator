@@ -9,8 +9,9 @@ public class Potato extends Plant{
         super();
     }
 
+    @Override
     public String toString(){
-        return this.getStage() + " potato, planted: " + this.getTimeSincePlanted() + " milliseconds ago";
+        return this.getStage() + " potato, planted: " + this.getTimeSincePlanted() + " milliseconds ago with growth duration of "+ this.getGrowthDuration();
     }
 
 }
