@@ -1,5 +1,6 @@
 package am.aua.game.farm;
 
+import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +32,7 @@ public class Test {
         farm.setPlant(1,1, p);
         farm.setPlant(1,2,p2);
         farm.intervalTimer();
+
 //        st.collectPlant(p);
 //        st.collectPlant(p2);
     }
