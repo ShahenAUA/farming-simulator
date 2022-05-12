@@ -27,11 +27,13 @@ public class Test {
 //        },0,2000);
         Farm farm = new Farm();
         Potato p = new Potato();
-        Potato p2 = new Potato(Plant.PlantGrowthStages.SmallPlant, 100, 50);
+        Potato p2 = new Potato(Plant.PlantGrowthStages.AdultPlant, 100, 100);
         Storage st = new Storage();
         farm.setPlant(1,1, p);
         farm.setPlant(1,2,p2);
         farm.intervalTimer();
+        System.out.println(st.storeItem(p2));
+        System.out.println(st.storageInfo());
 
 //        st.collectPlant(p);
 //        st.collectPlant(p2);

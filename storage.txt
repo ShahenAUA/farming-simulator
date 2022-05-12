@@ -1,2 +1,6 @@
-Seed potato, planted: 0 milliseconds ago
-SmallPlant potato, planted: 50 milliseconds ago
+Potato stored: 1 kg
+Tomato stored: 0 kg
+Cucumber stored: 0 kg
+Cabbage stored: 0 kg
+ 
+Bin filled: 0 kg
