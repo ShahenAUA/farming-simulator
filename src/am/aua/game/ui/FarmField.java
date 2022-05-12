@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class FarmField extends JButton {
     private final Color HIGHLIGHT_COLOR = new Color(236, 61, 57);
-    private final Color EMPTY_COLOR = new Color(154, 57, 5);
+    public final Color EMPTY_COLOR = new Color(154, 57, 5);
     private final Color PLANTED_COLOR = new Color(116, 154, 74);
     private final Color PLANTED_CLICKED_COLOR = new Color(16, 59, 180);
 
@@ -81,7 +81,7 @@ public class FarmField extends JButton {
 
     public void setPlantedClicked(boolean b) {
         if(b && !this.isPlantedClicked) { this.setBackground(PLANTED_CLICKED_COLOR); this.isPlantedClicked = true;}
-        else if(!b && this.isPlantedClicked) { this.setBackground(EMPTY_COLOR); this.isPlantedClicked = false;}
+        else if(!b && this.isPlantedClicked) { this.setBackground(this.color); this.isPlantedClicked = false;}
     }
 
     public boolean getPlantedClicked() {

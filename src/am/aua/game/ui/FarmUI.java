@@ -102,9 +102,8 @@ public class FarmUI extends JPanel {
                     if(p.getStage() == Plant.PlantGrowthStages.AdultPlant || p.getStage() == Plant.PlantGrowthStages.Rotten) {
                         this.farm.getStorage().storeItem(p);
                         farmButtons[i][j].setPlanted(false, this.farm.getFarmSpace()[i][j].getClass().getSimpleName());
-                        Plant[][] fs = this.farm.getFarmSpace();
-                        fs[i][j] = null;
-                        this.farm.setFarmSpace(fs);
+                        this.farm.getFarmSpace()[i][j] = null;
+                        farmButtons[i][j].setColor(farmButtons[i][j].EMPTY_COLOR);
                     }
                     else{
                         textArea1.setText("The plant is not ready to collect");
