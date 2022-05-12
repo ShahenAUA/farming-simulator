@@ -1,6 +1,6 @@
-Potato stored: 1 kg
+Potato stored: 0 kg
 Tomato stored: 0 kg
 Cucumber stored: 0 kg
 Cabbage stored: 0 kg
  
-Bin filled: 0 kg
+Bin filled: 1 kg

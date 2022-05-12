@@ -6,11 +6,11 @@ public class Tomato extends Plant{
     }
 
     public Tomato() {
-        super();
+        super(PlantGrowthStages.Seed, 400, 0);
     }
 
     public String toString(){
-        return "Tomato stage: "+this.getStage()+"\nProgress: "+this.getTimeSincePlanted()+"/"+this.getGrowthDuration();
+        return "Tomato stage: "+this.getStage()+"\nProgress: "+this.getTimeSincePlanted()+"/"+this.getGrowthDuration()+" days";
     }
 
 }

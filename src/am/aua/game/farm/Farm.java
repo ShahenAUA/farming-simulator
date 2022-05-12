@@ -29,6 +29,10 @@ public class Farm {
         return new Storage(this.storage);
     }
 
+    public Plant[][] getFarmSpace() {
+        return this.farmSpace;
+    }
+
     public void intervalTimer() {
         new Timer().scheduleAtFixedRate(new TimerTask(){
             @Override
@@ -37,14 +41,10 @@ public class Farm {
                     for(int j = 0; j < 5; j++){
                         if(farmSpace[i][j] != null && farmSpace[i][j].getStage()!= Plant.PlantGrowthStages.Rotten){
                             farmSpace[i][j].timeTick();
-//                            System.out.println(farmSpace[i][j].toString()+"\n");
-//                            System.out.println(farmSpace[i][j].getClass().getSimpleName());
                         }
                     }
                 }
             }
         },0,2000);
     }
-
-
 }

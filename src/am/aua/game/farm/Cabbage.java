@@ -6,11 +6,11 @@ public class Cabbage extends Plant{
     }
 
     public Cabbage() {
-        super();
+        super(PlantGrowthStages.Seed, 600, 0);
     }
 
     public String toString(){
-        return "Cabbage stage: "+this.getStage()+"\nProgress: "+this.getTimeSincePlanted()+"/"+this.getGrowthDuration();
+        return "Cabbage stage: "+this.getStage()+"\nProgress: "+this.getTimeSincePlanted()+"/"+this.getGrowthDuration()+" days";
     }
 
 }

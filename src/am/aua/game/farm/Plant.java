@@ -7,7 +7,6 @@ public abstract class Plant implements Cloneable {
     private PlantGrowthStages stage;
     private int growthDuration;
     private int timeSincePlanted;
-    private int weight;
 
 
     public Plant(PlantGrowthStages s, int gd, int tsp) {
@@ -41,13 +40,10 @@ public abstract class Plant implements Cloneable {
         this.timeSincePlanted = tsp;
     }
 
-    public int getWeight() { return this.weight; }
-    public void setWeight(int w) { this.weight = w; }
-
     public void timeTick() {
-        this.setTimeSincePlanted(this.timeSincePlanted + tickAmount);
+        if(this.getStage() != PlantGrowthStages.Rotten) this.setTimeSincePlanted(this.timeSincePlanted + tickAmount);
         if(this.timeSincePlanted >= 1.5 * (double) this.growthDuration) {
-            if (this.getStage() != PlantGrowthStages.AdultPlant) this.setStage(PlantGrowthStages.Rotten);
+            this.setStage(PlantGrowthStages.Rotten);
             return;
         }
         if(this.timeSincePlanted >= (double) this.growthDuration) {

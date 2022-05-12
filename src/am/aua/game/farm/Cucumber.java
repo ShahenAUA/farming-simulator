@@ -6,11 +6,11 @@ public class Cucumber extends Plant{
     }
 
     public Cucumber() {
-        super();
+        super(PlantGrowthStages.Seed, 30, 0);
     }
 
     public String toString(){
-        return "Cucumber stage: "+this.getStage()+"\nProgress: "+this.getTimeSincePlanted()+"/"+this.getGrowthDuration();
+        return "Cucumber stage: "+this.getStage()+"\nProgress: "+this.getTimeSincePlanted()+"/"+this.getGrowthDuration()+" days";
     }
 
 }

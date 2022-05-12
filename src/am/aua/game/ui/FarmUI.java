@@ -1,5 +1,7 @@
 package am.aua.game.ui;
 
+import am.aua.game.farm.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,7 +11,11 @@ import javax.swing.border.*;
  * @author Shahen
  */
 public class FarmUI extends JPanel {
-    public FarmUI() {
+    private Farm farm;
+    private FarmField[][] farmButtons = new FarmField[5][5];
+
+    public FarmUI(Farm f) {
+        this.farm = f;
         initComponents();
     }
 
@@ -18,23 +24,83 @@ public class FarmUI extends JPanel {
     }
 
     private void farmFieldClicked(ActionEvent e) {
-        if(e.getSource() instanceof FarmField btn)
-            if(!btn.getHighlight()) btn.setHighlight(true);
+        if(e.getSource() instanceof FarmField btn) {
+            int xCo = btn.getCoordinates()[0], yCo = btn.getCoordinates()[1];
+            String str = "Empty field";
+            if(this.farm.getFarmSpace()[xCo][yCo] != null)
+                str = this.farm.getFarmSpace()[xCo][yCo].toString();
+            textArea1.setText(str);
+            if (!btn.getHighlight() && !btn.getPlanted()) {
+                clearAllHighlights(true, true);
+                btn.setHighlight(true);
+            }
+            if(btn.getPlanted() && !btn.getPlantedClicked()) {
+                clearAllHighlights(true, true);
+                btn.setPlantedClicked(true);
+            }
+        }
+    }
+
+    private void clearAllHighlights(boolean highlighted, boolean plantedClicked) {
+        for(int k = 0; k < 5; k++) {
+            for(int p = 0; p < 5; p++){
+                if(highlighted) farmButtons[k][p].setHighlight(false);
+                if(plantedClicked) farmButtons[k][p].setPlantedClicked(false);
+            }
+        }
     }
 
     private void plantButtonClicked(ActionEvent e) {
-        if(e.getSource() instanceof FarmField btn)
-            if(!btn.getHighlight()) btn.setHighlight(true);
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++){
+                if(farmButtons[i][j] != null && farmButtons[i][j].getHighlight())
+                    if(farmButtons[i][j].getPlanted()) {
+                        textArea1.setText("Field is not empty");
+                        farmButtons[i][j].setHighlight(false);
+                    }
+                    else if(e.getSource() instanceof JButton btn){
+                        switch (btn.getText()) {
+                            case "Plant Potato" -> {
+                                this.farm.setPlant(i, j, new Potato());
+                                farmButtons[i][j].setPlanted(true, "Potato");
+                            }
+                            case "Plant Tomato" -> {
+                                this.farm.setPlant(i, j, new Tomato());
+                                farmButtons[i][j].setPlanted(true, "Tomato");
+                            }
+                            case "Plant Cucumber" -> {
+                                this.farm.setPlant(i, j, new Cucumber());
+                                farmButtons[i][j].setPlanted(true, "Cucumber");
+                            }
+                            case "Plant Cabbage" -> {
+                                this.farm.setPlant(i, j, new Cabbage());
+                                farmButtons[i][j].setPlanted(true, "Cabbage");
+                            }
+                        }
+                        farmButtons[i][j].setHighlight(false);
+                    }
+            }
+        }
+
+
+
     }
 
     private void displayStorageButtonClicked(ActionEvent e) {
-        if(e.getSource() instanceof FarmField btn)
-            if(!btn.getHighlight()) btn.setHighlight(true);
+        textArea1.setText(this.farm.getStorage().storageInfo());
     }
 
     private void collectPlantButtonClicked(ActionEvent e) {
-        if(e.getSource() instanceof FarmField btn)
-            if(!btn.getHighlight()) btn.setHighlight(true);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (farmButtons[i][j].getPlantedClicked()) { //                    if(this.farm.getFarmSpace()[i][j]!=null)
+                    this.farm.getStorage().storeItem(this.farm.getFarmSpace()[i][j]);
+                    farmButtons[i][j].setPlanted(false, this.farm.getFarmSpace()[i][j].getClass().getSimpleName());
+                    this.farm.getFarmSpace()[i][j] = null;
+                }
+            }
+        }
+
     }
 
     private void initComponents() {
@@ -75,7 +141,9 @@ public class FarmUI extends JPanel {
                 FarmGrid.setLayout(new GridLayout(5, 5));
 
                 for(int i = 0; i < 25; i++) {
-                    FarmField btn = new FarmField(i/5, i%5);
+                    int xCo = i/5, yCo = i%5;
+                    FarmField btn = new FarmField(xCo, yCo);
+                    this.farmButtons[xCo][yCo] = btn;
                     btn.addActionListener(e -> farmFieldClicked(e));
                     FarmGrid.add(btn);
 
@@ -108,10 +176,12 @@ public class FarmUI extends JPanel {
 
                         //---- Potato ----
                         Potato.setText("Plant Potato");
+                        Potato.addActionListener(e -> plantButtonClicked(e));
                         panel1.add(Potato);
 
                         //---- Tomato ----
                         Tomato.setText("Plant Tomato");
+                        Tomato.addActionListener(e -> plantButtonClicked(e));
                         panel1.add(Tomato);
                     }
                     panel3.add(panel1);
@@ -122,10 +192,12 @@ public class FarmUI extends JPanel {
 
                         //---- Cabbage ----
                         Cabbage.setText("Plant Cabbage");
+                        Cabbage.addActionListener(e -> plantButtonClicked(e));
                         panel2.add(Cabbage);
 
                         //---- Cucumber ----
                         Cucumber.setText("Plant Cucumber");
+                        Cucumber.addActionListener(e -> plantButtonClicked(e));
                         panel2.add(Cucumber);
                     }
                     panel3.add(panel2);
@@ -136,12 +208,12 @@ public class FarmUI extends JPanel {
 
                         //---- Collect ----
                         Collect.setText("Collect Plant");
-                        Collect.setActionCommand("Collect Plant");
+                        Collect.addActionListener(e -> collectPlantButtonClicked(e));
                         panel4.add(Collect);
 
                         //---- Storage ----
                         Storage.setText("Display Storage");
-                        Storage.setActionCommand("Collect Plant");
+                        Storage.addActionListener(e -> displayStorageButtonClicked(e));
                         panel4.add(Storage);
                     }
                     panel3.add(panel4);

@@ -31,7 +31,7 @@ public class Test {
         Storage st = new Storage();
         farm.setPlant(1,1, p);
         farm.setPlant(1,2,p2);
-        farm.intervalTimer();
+//        farm.intervalTimer();
         System.out.println(st.storeItem(p2));
         System.out.println(st.storageInfo());
 
