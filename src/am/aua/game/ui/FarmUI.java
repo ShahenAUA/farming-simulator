@@ -62,18 +62,22 @@ public class FarmUI extends JPanel {
                         switch (btn.getText()) {
                             case "Plant Potato" -> {
                                 this.farm.setPlant(i, j, new Potato());
+                                farm.getFarmSpace()[i][j].setUiButton(farmButtons[i][j]);
                                 farmButtons[i][j].setPlanted(true, "Potato");
                             }
                             case "Plant Tomato" -> {
                                 this.farm.setPlant(i, j, new Tomato());
+                                farm.getFarmSpace()[i][j].setUiButton(farmButtons[i][j]);
                                 farmButtons[i][j].setPlanted(true, "Tomato");
                             }
                             case "Plant Cucumber" -> {
                                 this.farm.setPlant(i, j, new Cucumber());
+                                farm.getFarmSpace()[i][j].setUiButton(farmButtons[i][j]);
                                 farmButtons[i][j].setPlanted(true, "Cucumber");
                             }
                             case "Plant Cabbage" -> {
                                 this.farm.setPlant(i, j, new Cabbage());
+                                farm.getFarmSpace()[i][j].setUiButton(farmButtons[i][j]);
                                 farmButtons[i][j].setPlanted(true, "Cabbage");
                             }
                         }
@@ -93,10 +97,18 @@ public class FarmUI extends JPanel {
     private void collectPlantButtonClicked(ActionEvent e) {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (farmButtons[i][j].getPlantedClicked()) { //                    if(this.farm.getFarmSpace()[i][j]!=null)
-                    this.farm.getStorage().storeItem(this.farm.getFarmSpace()[i][j]);
-                    farmButtons[i][j].setPlanted(false, this.farm.getFarmSpace()[i][j].getClass().getSimpleName());
-                    this.farm.getFarmSpace()[i][j] = null;
+                if (this.farmButtons[i][j].getPlantedClicked()) {
+                    Plant p = this.farm.getFarmSpace()[i][j];
+                    if(p.getStage() == Plant.PlantGrowthStages.AdultPlant || p.getStage() == Plant.PlantGrowthStages.Rotten) {
+                        this.farm.getStorage().storeItem(p);
+                        farmButtons[i][j].setPlanted(false, this.farm.getFarmSpace()[i][j].getClass().getSimpleName());
+                        Plant[][] fs = this.farm.getFarmSpace();
+                        fs[i][j] = null;
+                        this.farm.setFarmSpace(fs);
+                    }
+                    else{
+                        textArea1.setText("The plant is not ready to collect");
+                    }
                 }
             }
         }

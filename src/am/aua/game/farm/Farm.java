@@ -26,21 +26,26 @@ public class Farm {
     }
 
     public Storage getStorage(){
-        return new Storage(this.storage);
+        return this.storage;
     }
 
     public Plant[][] getFarmSpace() {
         return this.farmSpace;
     }
 
+    public void setFarmSpace(Plant[][] fs) {
+        this.farmSpace = fs;
+    }
+
     public void intervalTimer() {
+        Plant[][] fs = this.getFarmSpace();
         new Timer().scheduleAtFixedRate(new TimerTask(){
             @Override
             public void run(){
                 for(int i = 0; i < 5; i++){
                     for(int j = 0; j < 5; j++){
-                        if(farmSpace[i][j] != null && farmSpace[i][j].getStage()!= Plant.PlantGrowthStages.Rotten){
-                            farmSpace[i][j].timeTick();
+                        if(fs[i][j] != null && fs[i][j].getStage()!= Plant.PlantGrowthStages.Rotten){
+                            fs[i][j].timeTick();
                         }
                     }
                 }

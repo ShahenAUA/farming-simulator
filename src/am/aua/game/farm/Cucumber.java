@@ -6,7 +6,7 @@ public class Cucumber extends Plant{
     }
 
     public Cucumber() {
-        super(PlantGrowthStages.Seed, 30, 0);
+        super(PlantGrowthStages.Seed, 300, 0);
     }
 
     public String toString(){

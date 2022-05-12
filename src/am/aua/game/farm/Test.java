@@ -32,7 +32,6 @@ public class Test {
         farm.setPlant(1,1, p);
         farm.setPlant(1,2,p2);
 //        farm.intervalTimer();
-        System.out.println(st.storeItem(p2));
         System.out.println(st.storageInfo());
 
 //        st.collectPlant(p);

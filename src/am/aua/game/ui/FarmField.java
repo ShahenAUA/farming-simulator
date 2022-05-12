@@ -4,12 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FarmField extends JButton {
-    private final Color HIGHLIGHT_COLOR = Color.WHITE;
-    private final Color EMPTY_COLOR = new Color(95, 132, 241);
-    private final Color PLANTED_COLOR = new Color(95, 132, 241);
+    private final Color HIGHLIGHT_COLOR = new Color(236, 61, 57);
+    private final Color EMPTY_COLOR = new Color(154, 57, 5);
+    private final Color PLANTED_COLOR = new Color(116, 154, 74);
     private final Color PLANTED_CLICKED_COLOR = new Color(16, 59, 180);
 
-    private final Color COLLECTABLE_COLOR = new Color(95, 132, 241);
     private Color color;
     private int xCoordinate;
     private int yCoordinate;
@@ -54,6 +53,10 @@ public class FarmField extends JButton {
         }
     }
 
+    public void setColor(Color clr) {
+        this.color = clr;
+    }
+
     public void setField() {
         this.setIcon(null);
     }
@@ -69,7 +72,7 @@ public class FarmField extends JButton {
 
     public void setPlanted(boolean b, String plant) {
         if(b && !this.isPlanted) { this.setBackground(PLANTED_COLOR); this.isPlanted = true; this.setField(plant);}
-        else if(!b && this.isPlanted) { this.setBackground(this.color); this.isPlanted = false; this.setField();}
+        else if(!b && this.isPlanted) { this.setBackground(EMPTY_COLOR); this.isPlanted = false; this.setField();}
     }
 
     public boolean getPlanted() {
@@ -78,7 +81,7 @@ public class FarmField extends JButton {
 
     public void setPlantedClicked(boolean b) {
         if(b && !this.isPlantedClicked) { this.setBackground(PLANTED_CLICKED_COLOR); this.isPlantedClicked = true;}
-        else if(!b && this.isPlantedClicked) { this.setBackground(this.color); this.isPlantedClicked = false;}
+        else if(!b && this.isPlantedClicked) { this.setBackground(EMPTY_COLOR); this.isPlantedClicked = false;}
     }
 
     public boolean getPlantedClicked() {
